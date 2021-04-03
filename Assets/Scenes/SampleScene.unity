@@ -235,6 +235,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: "\u52C7\u8005"
   hp: 10
+  selectCommand: {fileID: 0}
+  target: {fileID: 0}
+  commands:
+  - {fileID: 11400000, guid: 650a30a0a25a94f87bb22af38e84e8f0, type: 2}
+  - {fileID: 11400000, guid: 3970c90ebf95546ddabd0c0fd5f896ac, type: 2}
 --- !u!4 &532755910
 Transform:
   m_ObjectHideFlags: 0
@@ -325,6 +330,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: "\u30B9\u30E9\u30A4\u30E0"
   hp: 5
+  selectCommand: {fileID: 0}
+  target: {fileID: 0}
+  commands:
+  - {fileID: 11400000, guid: 650a30a0a25a94f87bb22af38e84e8f0, type: 2}
 --- !u!4 &1841119385
 Transform:
   m_ObjectHideFlags: 0
