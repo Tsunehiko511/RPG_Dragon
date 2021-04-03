@@ -12,7 +12,7 @@ public class BattleManager : MonoBehaviour
     {
         StartPhase,
         ChooseCommandPhase, // コマンド選択
-        ExcutePhase,        // 実行
+        ExecutePhase,        // 実行
         Result,
         End,
     }
@@ -40,11 +40,17 @@ public class BattleManager : MonoBehaviour
                 case Phase.ChooseCommandPhase:
                     // 技選択をしたら次のフェーズにいく
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-                    phase = Phase.ExcutePhase;
+                    // 技選択
+                    player.selectCommand = player.commands[1];
+                    player.target = player;
+                    enemy.selectCommand = enemy.commands[0];
+                    enemy.target = enemy;
+
+                    phase = Phase.ExecutePhase;
                     break;
-                case Phase.ExcutePhase:
-                    player.Attack(enemy);
-                    enemy.Attack(player);
+                case Phase.ExecutePhase:
+                    player.selectCommand.Execute(player,player.target);
+                    enemy.selectCommand.Execute(enemy,enemy.target);
                     // どちらかが死亡したら
                     if (player.hp <= 0 || enemy.hp <= 0)
                     {

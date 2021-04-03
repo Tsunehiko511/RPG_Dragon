@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Battler : MonoBehaviour
 {
+    // *技の実装*
+    // 技は独立したクラスで管理する
+    // ScriptableObjectで管理する
+    // 技の種類を増やすのは「継承」を使う
+
+
     // HPを持っている
     public new string name;
     public int hp;
 
-    // 攻撃ができる
-    public void Attack(Battler target)
-    {
-        target.hp -= 3;
-        Debug.Log($"{name}の攻撃:{target.name}に{3}のダメージ:残りHP{target.hp}");
-    }
+    // 実行するコマンド
+    public CommandSO selectCommand;
+    public Battler target;
+
+    // 持ってる技
+    public CommandSO[] commands;
 }
