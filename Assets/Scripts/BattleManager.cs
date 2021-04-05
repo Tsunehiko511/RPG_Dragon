@@ -8,6 +8,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Battler player = default;
     [SerializeField] Battler enemy = default;
 
+    // Window
+    [SerializeField] WindowBattleMenuCommand windowBattleMenuCommand = default;
+
     enum Phase
     {
         StartPhase,
@@ -40,13 +43,21 @@ public class BattleManager : MonoBehaviour
                 case Phase.ChooseCommandPhase:
                     // 技選択をしたら次のフェーズにいく
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-                    // 技選択
-                    player.selectCommand = player.commands[1];
-                    player.target = player;
-                    enemy.selectCommand = enemy.commands[0];
-                    enemy.target = enemy;
-
-                    phase = Phase.ExecutePhase;
+                    int currentID = windowBattleMenuCommand.currentID;
+                    if (currentID == 0)
+                    {
+                        // 0なら攻撃
+                        player.selectCommand = player.commands[0];
+                        player.target = enemy;
+                        enemy.selectCommand = enemy.commands[0];
+                        enemy.target = player;
+                        phase = Phase.ExecutePhase;
+                    }
+                    else
+                    {
+                        // それ以外なら再度ChooseCommandPhaseになる
+                        phase = Phase.ChooseCommandPhase;
+                    }
                     break;
                 case Phase.ExecutePhase:
                     player.selectCommand.Execute(player,player.target);

@@ -243,6 +243,7 @@ MonoBehaviour:
   - {fileID: 1355716856}
   - {fileID: 1938860885}
   - {fileID: 846783922}
+  currentID: 0
 --- !u!1 &339399822
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,6 +861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 532755909}
   enemy: {fileID: 1841119384}
+  windowBattleMenuCommand: {fileID: 61465751}
 --- !u!4 &1410833407
 Transform:
   m_ObjectHideFlags: 0
