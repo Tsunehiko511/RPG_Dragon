@@ -11,6 +11,15 @@ public class BattleManager : MonoBehaviour
     // Window
     [SerializeField] WindowBattleMenuCommand windowBattleMenuCommand = default;
 
+    // 本日の内容：ステートパターンの導入
+    // 何がよくなる？
+    // ・switch文がなくなる
+    // ・フェーズが増えてもBattleManager.csを変更しなくていい
+
+    // フェーズの多様化
+
+    PhaseBase phaseState;
+
     enum Phase
     {
         StartPhase,
@@ -24,12 +33,26 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        phase = Phase.StartPhase;
+        // phase = Phase.StartPhase;
+        phaseState = new StartPhase();
         StartCoroutine(Battle());
     }
 
     IEnumerator Battle()
     {
+        while (!(phaseState is EndPhase))
+        {
+            // フェーズの実行
+            phaseState.Execute();
+            // 次のフェーズに以降
+            phaseState = phaseState.next;
+        }
+        // EndPhaseの実行
+        phaseState.Execute();
+
+
+        yield break; // ここより下は実行しない
+
         while (phase != Phase.End)
         {
             yield return null;
