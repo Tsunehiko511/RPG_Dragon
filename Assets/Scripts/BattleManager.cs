@@ -4,82 +4,53 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    // 戦闘キャラクターを作りたい
-    [SerializeField] Battler player = default;
-    [SerializeField] Battler enemy = default;
+    // 今日やりたいこと
+    // ・各フェーズに引数で渡すものをまとめる => 構造体
+    // 構造体とは？ => ほぼクラス(劣化版？)
 
-    // Window
-    [SerializeField] WindowBattleMenuCommand windowBattleMenuCommand = default;
-
-    enum Phase
-    {
-        StartPhase,
-        ChooseCommandPhase, // コマンド選択
-        ExecutePhase,        // 実行
-        Result,
-        End,
-    }
-
-    Phase phase;
+    // Battleで必要な変数をまとめたもの
+    [SerializeField] BattleContext battleContext;
+    PhaseBase phaseState;
 
     void Start()
     {
-        phase = Phase.StartPhase;
+        phaseState = new StartPhase();
         StartCoroutine(Battle());
     }
 
     IEnumerator Battle()
     {
-        while (phase != Phase.End)
+        while (!(phaseState is EndPhase))
         {
-            yield return null;
-            Debug.Log(phase);
-            switch (phase)
-            {
-                case Phase.StartPhase:
-                    //
-                    phase = Phase.ChooseCommandPhase;
-                    break;
-                case Phase.ChooseCommandPhase:
-                    // 技選択をしたら次のフェーズにいく
-                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-                    int currentID = windowBattleMenuCommand.currentID;
-                    if (currentID == 0)
-                    {
-                        // 0なら攻撃
-                        player.selectCommand = player.commands[0];
-                        player.target = enemy;
-                        enemy.selectCommand = enemy.commands[0];
-                        enemy.target = player;
-                        phase = Phase.ExecutePhase;
-                    }
-                    else
-                    {
-                        // それ以外なら再度ChooseCommandPhaseになる
-                        phase = Phase.ChooseCommandPhase;
-                    }
-                    break;
-                case Phase.ExecutePhase:
-                    player.selectCommand.Execute(player,player.target);
-                    enemy.selectCommand.Execute(enemy,enemy.target);
-                    // どちらかが死亡したら
-                    if (player.hp <= 0 || enemy.hp <= 0)
-                    {
-                        phase = Phase.Result;
-                    }
-                    else
-                    {
-                        phase = Phase.ChooseCommandPhase;
-                    }
-                    break;
-                case Phase.Result:
-                    // 
-                    phase = Phase.End;
-                    break;
-                case Phase.End:
-                    // 
-                    break;
-            }
+            // フェーズの実行
+            yield return phaseState.Execute(battleContext);
+            // 次のフェーズに以降
+            phaseState = phaseState.next;
         }
+        // EndPhaseの実行
+        yield return phaseState.Execute(battleContext);
+
+
+        yield break; // ここより下は実行しない
+    }
+}
+
+// バトルに使う変数をまとめる:構造体(変数と関数をまとめたもの)
+[System.Serializable]
+public struct BattleContext
+{
+    // 戦闘キャラクターを作りたい
+    public Battler player;
+    public Battler enemy;
+
+    // Window
+    public WindowBattleMenuCommand windowBattleMenuCommand;
+
+    // 初期化を作る必要がある
+    public BattleContext(Battler player, Battler enemy, WindowBattleMenuCommand windowBattleMenuCommand)
+    {
+        this.player = player;
+        this.enemy = enemy;
+        this.windowBattleMenuCommand = windowBattleMenuCommand;
     }
 }
