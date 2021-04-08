@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ResultPhase : PhaseBase
 {
-    public override void Execute()
+    public override IEnumerator Execute(BattleContext battleContext)
     {
+        yield return null;
         Debug.Log("ResultPhase");
         next = new EndPhase();
     }

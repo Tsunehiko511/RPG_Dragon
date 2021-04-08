@@ -859,9 +859,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7d7920a554d4d4292249972fdc9af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 532755909}
-  enemy: {fileID: 1841119384}
-  windowBattleMenuCommand: {fileID: 61465751}
+  battleContext:
+    player: {fileID: 532755909}
+    enemy: {fileID: 1841119384}
+    windowBattleMenuCommand: {fileID: 61465751}
 --- !u!4 &1410833407
 Transform:
   m_ObjectHideFlags: 0

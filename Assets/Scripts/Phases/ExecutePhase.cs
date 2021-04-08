@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class ExecutePhase : PhaseBase
 {
-    public override void Execute()
+    public override IEnumerator Execute(BattleContext battleContext)
     {
+        yield return null;
+        battleContext.player.selectCommand.Execute(battleContext.player, battleContext.player.target);
+        battleContext.enemy.selectCommand.Execute(battleContext.enemy, battleContext.enemy.target);
+        // どちらかが死亡したら
+        if (battleContext.player.hp <= 0 || battleContext.enemy.hp <= 0)
+        {
+            next = new ResultPhase();
+        }
+        else
+        {
+            next = new ChooseCommandPhase();
+        }
+
         Debug.Log("ExecutePhase");
-        next = new ResultPhase();
     }
 }
