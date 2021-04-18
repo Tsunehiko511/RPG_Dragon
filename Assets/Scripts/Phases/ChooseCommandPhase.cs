@@ -19,6 +19,10 @@ public class ChooseCommandPhase : PhaseBase
             battleContext.enemy.target = battleContext.player;
             next = new ExecutePhase();
         }
+        else if (currentID == 1)
+        {
+            next = new ChooseSpellCommandPhase();
+        }
         else
         {
             // それ以外なら再度ChooseCommandPhaseになる

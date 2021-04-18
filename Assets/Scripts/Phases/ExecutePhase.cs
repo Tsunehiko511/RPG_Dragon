@@ -7,6 +7,8 @@ public class ExecutePhase : PhaseBase
     public override IEnumerator Execute(BattleContext battleContext)
     {
         yield return null;
+        battleContext.windowBattleMenuCommand.Close();
+        battleContext.windowBattleSpellCommand.Close();
         battleContext.player.selectCommand.Execute(battleContext.player, battleContext.player.target);
         battleContext.enemy.selectCommand.Execute(battleContext.enemy, battleContext.enemy.target);
         // どちらかが死亡したら
@@ -16,6 +18,7 @@ public class ExecutePhase : PhaseBase
         }
         else
         {
+            battleContext.windowBattleMenuCommand.Open();
             next = new ChooseCommandPhase();
         }
 
