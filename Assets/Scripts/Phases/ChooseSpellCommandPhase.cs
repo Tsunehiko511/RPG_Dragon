@@ -5,13 +5,12 @@ using UnityEngine;
 public class ChooseSpellCommandPhase : PhaseBase
 {
     // TODO:バグ&改善
-    // ・escapeでwindowを閉じたら、Menuの方を操作したいけどできない
     // ・コマンドごとのターゲットの指定
     public override IEnumerator Execute(BattleContext battleContext)
     {
         yield return null;
         // 呪文一覧を表示したい！
-        battleContext.windowBattleSpellCommand.gameObject.SetActive(true);
+        battleContext.windowBattleSpellCommand.Open();
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape));
         if (Input.GetKeyDown(KeyCode.Space))
@@ -45,6 +44,7 @@ public class ChooseSpellCommandPhase : PhaseBase
         }
         else
         {
+            battleContext.windowBattleMenuCommand.Select();
             next = new ChooseCommandPhase();
         }
 
