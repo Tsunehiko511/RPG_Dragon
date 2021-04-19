@@ -17,7 +17,24 @@ public class Battler : MonoBehaviour
     // 実行するコマンド
     public CommandSO selectCommand;
     public Battler target;
+    public Battler enemy;
 
     // 持ってる技
     public CommandSO[] commands;
+
+    // コマンドの対象（self, enemy）
+    // self => this
+    // enemy => enemy
+
+    public void SetTarget()
+    {
+        if(selectCommand.targetType == CommandSO.TargetType.Self)
+        {
+            target = this;
+        }
+        else if (selectCommand.targetType == CommandSO.TargetType.Enemy)
+        {
+            target = enemy;
+        }
+    }
 }

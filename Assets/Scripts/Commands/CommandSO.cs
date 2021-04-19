@@ -6,6 +6,14 @@ using UnityEngine;
 public class CommandSO : ScriptableObject
 {
     public new string name;
+    // 対象の種類を列挙する
+    public enum TargetType
+    {
+        Self,
+        Enemy,
+    }
+
+    public TargetType targetType;
 
     // 実行
     public virtual void Execute(Battler user, Battler target)
