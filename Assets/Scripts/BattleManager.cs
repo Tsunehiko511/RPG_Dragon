@@ -46,13 +46,9 @@ public struct BattleContext
     // Window
     public WindowBattleMenuCommand windowBattleMenuCommand;
     public WindowBattleMenuCommand windowBattleSpellCommand;
-
-    // 初期化を作る必要がある
-    public BattleContext(Battler player, Battler enemy, WindowBattleMenuCommand windowBattleMenuCommand, WindowBattleMenuCommand windowBattleSpellCommand)
+    public void SetEnemy()
     {
-        this.player = player;
-        this.enemy = enemy;
-        this.windowBattleMenuCommand = windowBattleMenuCommand;
-        this.windowBattleSpellCommand = windowBattleSpellCommand;
+        player.enemy = enemy;
+        enemy.enemy = player;
     }
 }

@@ -8,6 +8,7 @@ public class StartPhase : PhaseBase
     {
         yield return null;
         Debug.Log("StartPhase");
+        battleContext.SetEnemy();
         battleContext.windowBattleMenuCommand.Open();
         next = new ChooseCommandPhase();
     }

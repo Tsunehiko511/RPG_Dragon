@@ -15,32 +15,16 @@ public class ChooseSpellCommandPhase : PhaseBase
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape));
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // 選択したコマンド
             int currentID = battleContext.windowBattleSpellCommand.currentID;
-            if (currentID == 0)
-            {
-                // 攻撃
-                battleContext.player.selectCommand = battleContext.player.commands[0];
-                battleContext.player.target = battleContext.enemy;
-
-                battleContext.enemy.selectCommand = battleContext.enemy.commands[0];
-                battleContext.enemy.target = battleContext.player;
-                next = new ExecutePhase();
-            }
-            else if (currentID == 1)
-            {
-                // 回復
-                battleContext.player.selectCommand = battleContext.player.commands[1];
-                battleContext.player.target = battleContext.player;
-
-                battleContext.enemy.selectCommand = battleContext.enemy.commands[0];
-                battleContext.enemy.target = battleContext.player;
-                next = new ExecutePhase();
-            }
-            else
-            {
-                // それ以外なら再度ChooseCommandPhaseになる
-                next = new ChooseCommandPhase();
-            }
+            // コマンドの設定
+            battleContext.player.selectCommand = battleContext.player.commands[currentID];
+            //ターゲットの設定
+            battleContext.player.SetTarget();
+            // Enemy側のコマンド設定
+            battleContext.enemy.selectCommand = battleContext.enemy.commands[0];
+            battleContext.enemy.SetTarget();
+            next = new ExecutePhase();
         }
         else
         {
