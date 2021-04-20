@@ -24,6 +24,13 @@ public class Battler : MonoBehaviour
     // これをwindowに渡す(string形式)
     // windowは受け取って表示する
 
+    public List<string> items;
+    public string[] GetStringOfItem()
+    {
+        return items.ToArray();
+    }
+
+
     public string[] GetStringOfCommands()
     {
         List<string> list = new List<string>();
