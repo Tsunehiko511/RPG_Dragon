@@ -20,25 +20,34 @@ public class Battler : MonoBehaviour
     public Battler enemy;
 
     // 持ってる技
-    public CommandSO[] commands;
+    public List<CommandSO> commands = new List<CommandSO>();
     // これをwindowに渡す(string形式)
     // windowは受け取って表示する
 
-    public List<string> items;
+    public List<CommandSO> inventory = new List<CommandSO>();
     public string[] GetStringOfItem()
     {
-        return items.ToArray();
+        return GetStringOf(inventory);
     }
-
 
     public string[] GetStringOfCommands()
     {
+        return GetStringOf(commands);
+    }
+
+    string[] GetStringOf(List<CommandSO> commands)
+    {
         List<string> list = new List<string>();
-        foreach(CommandSO command in commands)
+        foreach (CommandSO command in commands)
         {
             list.Add(command.name);
         }
         return list.ToArray();
+    }
+
+    public void RemoveItem(CommandSO item)
+    {
+        inventory.Remove(item);
     }
 
 

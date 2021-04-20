@@ -432,9 +432,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 650a30a0a25a94f87bb22af38e84e8f0, type: 2}
   - {fileID: 11400000, guid: 3970c90ebf95546ddabd0c0fd5f896ac, type: 2}
   - {fileID: 11400000, guid: 3970c90ebf95546ddabd0c0fd5f896ac, type: 2}
-  items:
-  - "\u85AC\u8349"
-  - "\u85AC\u8349"
+  inventory:
+  - {fileID: 11400000, guid: dbd81f05f50cf477bbc3bb0ccf247bad, type: 2}
+  - {fileID: 11400000, guid: dbd81f05f50cf477bbc3bb0ccf247bad, type: 2}
+  - {fileID: 11400000, guid: dbd81f05f50cf477bbc3bb0ccf247bad, type: 2}
 --- !u!4 &532755910
 Transform:
   m_ObjectHideFlags: 0
@@ -1113,7 +1114,7 @@ MonoBehaviour:
   enemy: {fileID: 0}
   commands:
   - {fileID: 11400000, guid: 650a30a0a25a94f87bb22af38e84e8f0, type: 2}
-  items: []
+  inventory: []
 --- !u!4 &1841119385
 Transform:
   m_ObjectHideFlags: 0
