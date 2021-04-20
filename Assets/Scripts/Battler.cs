@@ -21,10 +21,20 @@ public class Battler : MonoBehaviour
 
     // 持ってる技
     public CommandSO[] commands;
+    // これをwindowに渡す(string形式)
+    // windowは受け取って表示する
 
-    // コマンドの対象（self, enemy）
-    // self => this
-    // enemy => enemy
+    public string[] GetStringOfCommands()
+    {
+        List<string> list = new List<string>();
+        foreach(CommandSO command in commands)
+        {
+            list.Add(command.name);
+        }
+        return list.ToArray();
+    }
+
+
 
     public void SetTarget()
     {

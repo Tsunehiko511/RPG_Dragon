@@ -12,8 +12,26 @@ public class WindowBattleMenuCommand : MonoBehaviour
     // SelectableTextにMoveArrowToの関数の登録を行う
     [SerializeField] List<SelectableText> selectableTexts = new List<SelectableText>();
 
+    [SerializeField] SelectableText selectableTextPrefab = default;
     // 選択中の子要素のID
-    public int currentID; 
+    public int currentID;
+
+    public void CreateSelectableText(string[] commands)
+    {
+        arrow.SetParent(transform);
+        foreach (SelectableText selectableText in selectableTexts)
+        {
+            Destroy(selectableText.gameObject);
+        }
+        selectableTexts.Clear();
+        foreach (string command in commands)
+        {
+            Debug.Log(command);
+            SelectableText text = Instantiate(selectableTextPrefab, transform);
+            text.SetText(command);
+            selectableTexts.Add(text);
+        }
+    }
 
     void SetMoveArrowFunction()
     {
@@ -32,7 +50,7 @@ public class WindowBattleMenuCommand : MonoBehaviour
         arrow.SetParent(parent);
         // GetSiblingIndexとは、親からみて何番目の子要素か？
         currentID = parent.GetSiblingIndex();
-        Debug.Log($"カーソル移動:currentID{currentID}");
+        // Debug.Log($"カーソル移動:currentID{currentID}");
     }
 
     // 呪文ウィンドウを閉じたら、元々のWindowに選択状態を戻す
