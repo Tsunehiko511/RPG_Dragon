@@ -10,6 +10,7 @@ public class ChooseSpellCommandPhase : PhaseBase
     {
         yield return null;
         // 呪文一覧を表示したい！
+        battleContext.windowBattleSpellCommand.CreateSelectableText(battleContext.player.GetStringOfCommands());
         battleContext.windowBattleSpellCommand.Open();
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape));
