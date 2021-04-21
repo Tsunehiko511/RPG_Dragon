@@ -46,6 +46,7 @@ public struct BattleContext
     // Window
     public WindowBattleMenuCommand windowBattleMenuCommand;
     public WindowBattleMenuCommand windowBattleSpellCommand;
+    public WindowBattleMenuCommand windowBattleItemCommand;
     public void SetEnemy()
     {
         player.enemy = enemy;

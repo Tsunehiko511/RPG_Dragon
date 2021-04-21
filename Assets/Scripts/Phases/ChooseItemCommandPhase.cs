@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChooseSpellCommandPhase : PhaseBase
+public class ChooseItemCommandPhase : PhaseBase
 {
-    // TODO:バグ&改善
-    // ・コマンドごとのターゲットの指定
     public override IEnumerator Execute(BattleContext battleContext)
     {
-        // 呪文一覧を表示したい！
-        battleContext.windowBattleSpellCommand.CreateSelectableText(battleContext.player.GetStringOfCommands());
-        yield return null; 
-        battleContext.windowBattleSpellCommand.Open();
+        // アイテム一覧の表示
+        battleContext.windowBattleItemCommand.CreateSelectableText(battleContext.player.GetStringOfItem());
+        yield return null;
+        battleContext.windowBattleItemCommand.Open();
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape));
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // 選択したコマンド
-            int currentID = battleContext.windowBattleSpellCommand.currentID;
+            // 選択したアイテム
+            int currentID = battleContext.windowBattleItemCommand.currentID;
             // コマンドの設定
-            battleContext.player.selectCommand = battleContext.player.commands[currentID];
+            battleContext.player.selectCommand = battleContext.player.inventory[currentID];
             //ターゲットの設定
             battleContext.player.SetTarget();
             // Enemy側のコマンド設定
@@ -29,10 +27,10 @@ public class ChooseSpellCommandPhase : PhaseBase
         }
         else
         {
-            battleContext.windowBattleMenuCommand.Select();
+            battleContext.windowBattleItemCommand.Select();
             next = new ChooseCommandPhase();
         }
 
-        battleContext.windowBattleSpellCommand.gameObject.SetActive(false);
+        battleContext.windowBattleItemCommand.gameObject.SetActive(false);
     }
 }

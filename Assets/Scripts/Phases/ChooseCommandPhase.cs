@@ -23,6 +23,11 @@ public class ChooseCommandPhase : PhaseBase
         {
             next = new ChooseSpellCommandPhase();
         }
+        else if (currentID == 3)
+        {
+            // アイテム使用
+            next = new ChooseItemCommandPhase();
+        }
         else
         {
             // それ以外なら再度ChooseCommandPhaseになる
