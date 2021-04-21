@@ -8,9 +8,9 @@ public class ChooseSpellCommandPhase : PhaseBase
     // ・コマンドごとのターゲットの指定
     public override IEnumerator Execute(BattleContext battleContext)
     {
-        yield return null;
         // 呪文一覧を表示したい！
         battleContext.windowBattleSpellCommand.CreateSelectableText(battleContext.player.GetStringOfCommands());
+        yield return null; 
         battleContext.windowBattleSpellCommand.Open();
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape));

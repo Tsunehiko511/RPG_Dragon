@@ -6,9 +6,9 @@ public class ChooseItemCommandPhase : PhaseBase
 {
     public override IEnumerator Execute(BattleContext battleContext)
     {
-        yield return null;
         // アイテム一覧の表示
         battleContext.windowBattleItemCommand.CreateSelectableText(battleContext.player.GetStringOfItem());
+        yield return null;
         battleContext.windowBattleItemCommand.Open();
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape));
