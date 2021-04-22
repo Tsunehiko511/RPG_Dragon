@@ -20,14 +20,12 @@ public class ChooseItemCommandPhase : PhaseBase
             battleContext.player.selectCommand = battleContext.player.inventory[currentID];
             //ターゲットの設定
             battleContext.player.SetTarget();
-            // Enemy側のコマンド設定
-            battleContext.enemy.selectCommand = battleContext.enemy.commands[0];
-            battleContext.enemy.SetTarget();
-            next = new ExecutePhase();
+            next = new EnemyPhase();
         }
         else
         {
-            battleContext.windowBattleItemCommand.Select();
+            // escの処理
+            battleContext.windowBattleMenuCommand.Select();
             next = new ChooseCommandPhase();
         }
 

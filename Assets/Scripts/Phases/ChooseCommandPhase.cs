@@ -15,9 +15,7 @@ public class ChooseCommandPhase : PhaseBase
             // 0なら攻撃
             battleContext.player.selectCommand = battleContext.player.commands[0];
             battleContext.player.target = battleContext.enemy;
-            battleContext.enemy.selectCommand = battleContext.enemy.commands[0];
-            battleContext.enemy.target = battleContext.player;
-            next = new ExecutePhase();
+            next = new EnemyPhase();
         }
         else if (currentID == 1)
         {
