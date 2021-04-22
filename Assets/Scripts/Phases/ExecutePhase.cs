@@ -6,11 +6,12 @@ public class ExecutePhase : PhaseBase
 {
     public override IEnumerator Execute(BattleContext battleContext)
     {
-        yield return null;
+        yield return battleContext.windowLog.WaitWriting();
         battleContext.windowBattleMenuCommand.Close();
         battleContext.windowBattleSpellCommand.Close();
         battleContext.player.selectCommand.Execute(battleContext.player, battleContext.player.target);
         battleContext.enemy.selectCommand.Execute(battleContext.enemy, battleContext.enemy.target);
+        battleContext.windowLog.ShowLog("Executeフェーズ");
         // どちらかが死亡したら
         if (battleContext.player.hp <= 0 || battleContext.enemy.hp <= 0)
         {
