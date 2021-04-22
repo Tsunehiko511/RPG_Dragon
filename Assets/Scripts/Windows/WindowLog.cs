@@ -6,15 +6,11 @@ using UnityEngine.UI;
 public class WindowLog : MonoBehaviour
 {
     Text log;
-    // TODO:ログが3行だったら上にあげる
-    // ・ログを1行ずつ表示する:OK
-    // ・表示する際に3行すでに表示されていれば
-    //  　・一番上のログを削除する
-    //　　・下に新規を1行表示する
-
-    // 次回：表示中は入力をまつ
-
+    // TODO：表示中は入力をまつ:連続入力の禁止
+    // 書いている間は次のログをかかない！
     int lineCount; // 行数
+    bool isWriting; // 書いてますよ！（この間は書かないよ！）
+
 
     private void Awake()
     {
@@ -27,7 +23,7 @@ public class WindowLog : MonoBehaviour
     }
     IEnumerator ShowChara(string message)
     {
-        // log.text = "";
+        isWriting = true;
         message += '\n'; // 改行コードを追加
         foreach (char c in message)
         {
@@ -43,6 +39,7 @@ public class WindowLog : MonoBehaviour
             // 文字の表示
             log.text += c;
         }
+        isWriting = false;
     }
 
     IEnumerator MoveUpLine()
@@ -58,5 +55,12 @@ public class WindowLog : MonoBehaviour
         log.text = log.text.Substring(removePoint);
         lineCount--;
         yield return new WaitForSeconds(0.5f);
+    }
+
+    // 書いてる間は待機する
+    public IEnumerator WaitWriting()
+    {
+        // WaitUntil() trueになったら抜ける
+        yield return new WaitUntil(() => isWriting == false);
     }
 }

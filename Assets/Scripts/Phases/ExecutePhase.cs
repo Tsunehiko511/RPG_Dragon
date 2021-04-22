@@ -6,7 +6,7 @@ public class ExecutePhase : PhaseBase
 {
     public override IEnumerator Execute(BattleContext battleContext)
     {
-        yield return null;
+        yield return battleContext.windowLog.WaitWriting();
         battleContext.windowBattleMenuCommand.Close();
         battleContext.windowBattleSpellCommand.Close();
         battleContext.player.selectCommand.Execute(battleContext.player, battleContext.player.target);
